@@ -1,6 +1,6 @@
 module github.com/Yeicor/sdfx-ui
 
-go 1.22
+go 1.22.0
 
 toolchain go1.24.6
 
@@ -28,5 +28,5 @@ require (
 	github.com/yofu/dxf v0.0.0-20240729034626-50c66fc03e0d // indirect
 	golang.org/x/exp/shiny v0.0.0-20230223210539-50820d90acfd // indirect
 	golang.org/x/mobile v0.0.0-20221110043201-43a038452099 // indirect
-	golang.org/x/sys v0.5.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
 )
