@@ -1,13 +1,14 @@
 package ui
 
 import (
-	"github.com/Yeicor/sdfx-ui/internal"
-	"github.com/deadsy/sdfx/vec/v2"
-	"github.com/deadsy/sdfx/vec/v2i"
 	"image/color"
 	"math/rand"
 	"runtime"
 	"sync"
+
+	"github.com/Yeicor/sdfx-ui/internal"
+	v2 "github.com/deadsy/sdfx/vec/v2"
+	"github.com/deadsy/sdfx/vec/v2i"
 )
 
 type jobInternal struct {
@@ -34,7 +35,7 @@ func implCommonRender(genJob func(pixel v2i.Vec, pixel01 v2.Vec) interface{},
 
 	// Update random pixels if needed
 	bounds := args.FullRender.Bounds()
-	boundsSize := v2i.Vec{bounds.Size().X, bounds.Size().Y}
+	boundsSize := v2i.Vec{X: bounds.Size().X, Y: bounds.Size().Y}
 	pixelCount := boundsSize.X * boundsSize.Y
 	if pixelCount != len(*pixelsRand) {
 		// Random seed shouldn't matter, just make pixel coloring seem random for partial renders

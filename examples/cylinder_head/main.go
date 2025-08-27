@@ -13,13 +13,14 @@ No draft version for 3d printing and lost-PLA investment casting.
 package main
 
 import (
+	"math"
+
 	ui "github.com/Yeicor/sdfx-ui"
 	"github.com/deadsy/sdfx/render"
 	"github.com/deadsy/sdfx/sdf"
 	v2 "github.com/deadsy/sdfx/vec/v2"
 	v3 "github.com/deadsy/sdfx/vec/v3"
 	"github.com/hajimehoshi/ebiten"
-	"math"
 )
 
 //-----------------------------------------------------------------------------
@@ -116,10 +117,10 @@ func sparkplug(mode string, xOfs float64) sdf.SDF3 {
 		vlist = boss.Vertices()
 	} else if mode == "hole" {
 		vlist = []v2.Vec{
-			{0, 0},
-			{spHoleR, 0},
-			{spHoleR, spHoleH},
-			{0, spHoleH},
+			{X: 0, Y: 0},
+			{X: spHoleR, Y: 0},
+			{X: spHoleR, Y: spHoleH},
+			{X: 0, Y: spHoleH},
 		}
 	} else if mode == "counterbore" {
 		p := sdf.NewPolygon()
@@ -235,16 +236,16 @@ var studHoleDx0 = dim(7.0 / 16.0)
 var studHoleDx1 = dim(1.066)
 
 var studLocations = []v2.Vec{
-	{studHoleDx0 + studHoleDx1, 0},
-	{studHoleDx0 + studHoleDx1, studHoleDy},
-	{studHoleDx0 + studHoleDx1, -studHoleDy},
-	{studHoleDx0, studHoleDy},
-	{studHoleDx0, -studHoleDy},
-	{-studHoleDx0 - studHoleDx1, 0},
-	{-studHoleDx0 - studHoleDx1, studHoleDy},
-	{-studHoleDx0 - studHoleDx1, -studHoleDy},
-	{-studHoleDx0, studHoleDy},
-	{-studHoleDx0, -studHoleDy},
+	{X: studHoleDx0 + studHoleDx1, Y: 0},
+	{X: studHoleDx0 + studHoleDx1, Y: studHoleDy},
+	{X: studHoleDx0 + studHoleDx1, Y: -studHoleDy},
+	{X: studHoleDx0, Y: studHoleDy},
+	{X: studHoleDx0, Y: -studHoleDy},
+	{X: -studHoleDx0 - studHoleDx1, Y: 0},
+	{X: -studHoleDx0 - studHoleDx1, Y: studHoleDy},
+	{X: -studHoleDx0 - studHoleDx1, Y: -studHoleDy},
+	{X: -studHoleDx0, Y: studHoleDy},
+	{X: -studHoleDx0, Y: -studHoleDy},
 }
 
 //-----------------------------------------------------------------------------

@@ -1,16 +1,17 @@
 package ui
 
 import (
+	"image"
+	"image/color"
+	"log"
+	"math"
+
 	"github.com/Yeicor/sdfx-ui/internal"
 	"github.com/deadsy/sdfx/render"
 	"github.com/deadsy/sdfx/sdf"
 	"github.com/deadsy/sdfx/vec/v2i"
 	v3 "github.com/deadsy/sdfx/vec/v3"
 	"github.com/fogleman/fauxgl"
-	"image"
-	"image/color"
-	"log"
-	"math"
 )
 
 //-----------------------------------------------------------------------------
@@ -24,15 +25,9 @@ func Opt3Mesh(meshGenerator render.Render3, smoothNormalsRadians float64) Option
 		if r3, ok := r.impl.(*renderer3); ok {
 			log.Println("[DevRenderer] Rendering 3D mesh...") // only performed once per compilation
 			var triangles []*fauxgl.Triangle
-			triChan := make(chan []*render.Triangle3)
-			go func() {
-				meshGenerator.Render(r3.s, triChan)
-				close(triChan)
-			}()
-			for tris := range triChan {
-				for _, tri := range tris {
-					triangles = append(triangles, r3mConvertTriangle(tri))
-				}
+			allTriangles := render.ToTriangles(r3.s, meshGenerator)
+			for _, tri := range allTriangles {
+				triangles = append(triangles, r3mConvertTriangle(tri))
 			}
 			mesh := fauxgl.NewTriangleMesh(triangles)
 			// smooth the normals
@@ -101,7 +96,7 @@ func (rm *renderer3mesh) Render(r *renderer3, args *internal.RenderArgs) error {
 func (rm *renderer3mesh) reset(r *renderer3, args *internal.RenderArgs) (fauxgl.Matrix, v3.Vec) {
 	args.StateLock.Lock()
 	bounds := args.FullRender.Bounds()
-	boundsSize := v2i.Vec{bounds.Size().X, bounds.Size().Y}
+	boundsSize := v2i.Vec{X: bounds.Size().X, Y: bounds.Size().Y}
 	if rm.lastContext == nil || rm.lastContext.Width != boundsSize.X || rm.lastContext.Height != boundsSize.Y {
 		// Rebuild rendering context only when needed
 		rm.lastContext = fauxgl.NewContext(boundsSize.X, boundsSize.Y)
@@ -156,13 +151,13 @@ func (rm *renderer3mesh) renderBoundingBox(bb sdf.Box3, camFauxglMatrix fauxgl.M
 	return rm.lastContext.Image().(*image.NRGBA)
 }
 
-func r3mConvertTriangle(tri *render.Triangle3) *fauxgl.Triangle {
+func r3mConvertTriangle(tri *sdf.Triangle3) *fauxgl.Triangle {
 	normal := tri.Normal()
 	normalV := r3mToFauxglVector(normal)
 	return &fauxgl.Triangle{
-		V1: fauxgl.Vertex{Position: r3mToFauxglVector(tri.V[0]), Normal: normalV, Color: fauxgl.Gray(1)},
-		V2: fauxgl.Vertex{Position: r3mToFauxglVector(tri.V[1]), Normal: normalV, Color: fauxgl.Gray(1)},
-		V3: fauxgl.Vertex{Position: r3mToFauxglVector(tri.V[2]), Normal: normalV, Color: fauxgl.Gray(1)},
+		V1: fauxgl.Vertex{Position: r3mToFauxglVector(tri[0]), Normal: normalV, Color: fauxgl.Gray(1)},
+		V2: fauxgl.Vertex{Position: r3mToFauxglVector(tri[1]), Normal: normalV, Color: fauxgl.Gray(1)},
+		V3: fauxgl.Vertex{Position: r3mToFauxglVector(tri[2]), Normal: normalV, Color: fauxgl.Gray(1)},
 	}
 }
 

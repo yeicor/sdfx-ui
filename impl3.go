@@ -1,15 +1,16 @@
 package ui
 
 import (
-	"github.com/Yeicor/sdfx-ui/internal"
-	"github.com/deadsy/sdfx/sdf"
-	"github.com/deadsy/sdfx/vec/v2"
-	"github.com/deadsy/sdfx/vec/v2i"
-	"github.com/deadsy/sdfx/vec/v3"
 	"image"
 	"image/color"
 	"image/color/palette"
 	"math"
+
+	"github.com/Yeicor/sdfx-ui/internal"
+	"github.com/deadsy/sdfx/sdf"
+	v2 "github.com/deadsy/sdfx/vec/v2"
+	"github.com/deadsy/sdfx/vec/v2i"
+	v3 "github.com/deadsy/sdfx/vec/v3"
 )
 
 //-----------------------------------------------------------------------------
@@ -173,7 +174,7 @@ func (r *renderer3) Render(args *internal.RenderArgs) error {
 	args.StateLock.RLock()
 	colorModeCopy := args.State.ColorMode
 	bounds := args.FullRender.Bounds()
-	boundsSize := v2i.Vec{bounds.Size().X, bounds.Size().Y}
+	boundsSize := v2i.Vec{X: bounds.Size().X, Y: bounds.Size().Y}
 	//aspectRatio := float64(boundsSize[0]) / float64(boundsSize.Y)
 	camViewMatrix := cam3MatrixNoTranslation(args.State)
 	camPos := args.State.CamCenter.Add(camViewMatrix.MulPosition(v3.Vec{Y: -args.State.CamDist}))

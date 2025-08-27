@@ -1,18 +1,19 @@
 package ui
 
 import (
-	"github.com/Yeicor/sdfx-ui/internal"
-	"github.com/cenkalti/backoff/v4"
-	"github.com/deadsy/sdfx/sdf"
-	"github.com/deadsy/sdfx/vec/v2i"
-	"github.com/hajimehoshi/ebiten"
-	"github.com/subchen/go-trylock/v2"
 	"image"
 	"math"
 	"os"
 	"os/exec"
 	"sync"
 	"time"
+
+	"github.com/Yeicor/sdfx-ui/internal"
+	"github.com/cenkalti/backoff/v4"
+	"github.com/deadsy/sdfx/sdf"
+	"github.com/deadsy/sdfx/vec/v2i"
+	"github.com/hajimehoshi/ebiten"
+	"github.com/subchen/go-trylock/v2"
 )
 
 // Renderer is a SDF2/SDF3 renderer intended for fast development iterations that renders directly to a window.
@@ -69,8 +70,8 @@ func NewRenderer(anySDF interface{}, opts ...Option) *Renderer {
 		implStateLock:     &sync.RWMutex{},
 		cachedRenderLock:  &sync.RWMutex{},
 		renderingLock:     trylock.New(),
-		translateFrom:     v2i.Vec{math.MaxInt, math.MaxInt},
-		translateFromStop: v2i.Vec{math.MaxInt, math.MaxInt},
+		translateFrom:     v2i.Vec{X: math.MaxInt, Y: math.MaxInt},
+		translateFromStop: v2i.Vec{X: math.MaxInt, Y: math.MaxInt},
 		// Configuration
 		runCmd: func() *exec.Cmd {
 			return exec.Command("go", "run", "-v", ".")

@@ -1,15 +1,16 @@
 package ui
 
 import (
+	"image"
+	"image/color"
+	"image/color/palette"
+	"math"
+
 	"github.com/Yeicor/sdfx-ui/internal"
 	"github.com/deadsy/sdfx/sdf"
 	v2 "github.com/deadsy/sdfx/vec/v2"
 	"github.com/deadsy/sdfx/vec/v2i"
 	v3 "github.com/deadsy/sdfx/vec/v3"
-	"image"
-	"image/color"
-	"image/color/palette"
-	"math"
 )
 
 //-----------------------------------------------------------------------------
@@ -68,7 +69,7 @@ type renderer2 struct {
 func newDevRenderer2(s sdf.SDF2) internal.DevRendererImpl {
 	r := &renderer2{
 		s:             s,
-		evalScanCells: v2i.Vec{128, 128},
+		evalScanCells: v2i.Vec{X: 128, Y: 128},
 		getBBColor: func(idx int) color.Color {
 			return palette.WebSafe[((idx + 1) % len(palette.WebSafe))]
 		},

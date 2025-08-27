@@ -7,22 +7,37 @@ on:
     branches: [main]
 
 jobs:
-
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.20
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.24
 
-    - name: Install Ebiten dependencies
-      run: sudo apt-get update && sudo apt-get install -y libx11-dev libgl1-mesa-dev libasound2-dev libgles2-mesa-dev libalut-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev xvfb
+      - name: Install Ebiten dependencies
+        run: sudo apt-get update && sudo apt-get install -y libx11-dev libgl1-mesa-dev libasound2-dev libgles2-mesa-dev libalut-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev xvfb
 
-    - name: Build
-      run: go build -v ./...
+      - name: Go mod download
+        run: go mod download
 
-    - name: Go test (with virtual display)
-      run: xvfb-run go test -v ./...
+      - name: Go mod verify
+        run: go mod verify
+
+      - name: Go vet
+        run: go vet ./...
+
+      - name: Go fmt
+        run: |
+          if [ "$(gofmt -s -l . | wc -l)" -gt 0 ]; then
+            echo "The following files are not formatted:"
+            gofmt -s -l .
+            exit 1
+          fi
+
+      - name: Build
+        run: go build -v ./...
+
+      - run: xvfb-run ./.github/scripts/test.sh
