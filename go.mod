@@ -8,7 +8,7 @@ require (
 	github.com/barkimedes/go-deepcopy v0.0.0-20220514131651-17c30cfc62df
 	github.com/cenkalti/backoff/v4 v4.2.0
 	github.com/deadsy/sdfx v0.0.0-20250127165859-030b425ef91c
-	github.com/fogleman/fauxgl v0.0.0-20200818143847-27cddc103802
+	github.com/fogleman/fauxgl v0.0.0-20250110135958-abf826acbbbd
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/hajimehoshi/ebiten v1.12.12
 	github.com/mitchellh/reflectwalk v1.0.2
