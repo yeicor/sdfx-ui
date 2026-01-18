@@ -35,6 +35,8 @@ github.com/hajimehoshi/bitmapfont v1.3.0 h1:h6+HJQ+2MKT3lEVEArjVC4/h0qcFXlVsMTGu
 github.com/hajimehoshi/bitmapfont v1.3.0/go.mod h1:/Qb7yVjHYNUV4JdqNkPs6BSZwLjKqkZOMIp6jZD0KgE=
 github.com/hajimehoshi/ebiten v1.12.12 h1:JvmF1bXRa+t+/CcLWxrJCRsdjs2GyBYBSiFAfIqDFlI=
 github.com/hajimehoshi/ebiten v1.12.12/go.mod h1:1XI25ImVCDPJiXox4h9yK/CvN5sjDYnbF4oZcFzPXHw=
+github.com/hajimehoshi/ebiten v1.12.13 h1:0WbqwT1dxV0bSVKeSVSscLSM+MsKOw+B0sZSYeAFWek=
+github.com/hajimehoshi/ebiten v1.12.13/go.mod h1:wMKaKkTVgE/9ryRIxghOmQ1u0ZqjtDs5HUvTNHwCdjs=
 github.com/hajimehoshi/file2byteslice v0.0.0-20200812174855-0e5e8a80490e/go.mod h1:CqqAHp7Dk/AqQiwuhV1yT2334qbA/tFWQW0MD2dGqUE=
 github.com/hajimehoshi/go-mp3 v0.3.1/go.mod h1:qMJj/CSDxx6CGHiZeCgbiq2DSUkbK0UbtXShQcnfyMM=
 github.com/hajimehoshi/oto v0.6.1/go.mod h1:0QXGEkbuJRohbJaxr7ZQSxnju7hEhseiPx2hrh6raOI=

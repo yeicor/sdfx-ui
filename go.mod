@@ -10,7 +10,7 @@ require (
 	github.com/deadsy/sdfx v0.0.0-20250127165859-030b425ef91c
 	github.com/fogleman/fauxgl v0.0.0-20250110135958-abf826acbbbd
 	github.com/fsnotify/fsnotify v1.6.0
-	github.com/hajimehoshi/ebiten v1.12.12
+	github.com/hajimehoshi/ebiten v1.12.13
 	github.com/mitchellh/reflectwalk v1.0.2
 	github.com/subchen/go-trylock/v2 v2.0.0
 	golang.org/x/image v0.22.0
