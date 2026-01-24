@@ -127,7 +127,6 @@ func (r *Renderer) rendererSwapChild(runCmd *exec.Cmd, runCmdF func() *exec.Cmd)
 	err = tmpL.Close()
 	if err != nil {
 		log.Println("[DevRenderer] tmpL.Close error:", err)
-		return nil
 	}
 	// 3. Configure the process and start it in the background
 	runCmd = runCmdF()
@@ -161,8 +160,9 @@ func (r *Renderer) rendererSwapChild(runCmd *exec.Cmd, runCmdF func() *exec.Cmd)
 			select {
 			case ps, ok := <-startupFinished:
 				if ok && !ps.Success() {
-					err2 := backoff.Permanent(fmt.Errorf("new code crashed (pid " + strconv.Itoa(runCmd.Process.Pid) +
-						"), fix errors: " + ps.String()))
+					err2 := backoff.Permanent(fmt.Errorf(
+					"new code crashed (pid %d), fix errors: %s",
+					runCmd.Process.Pid, ps.String()))
 					return err2
 				}
 			default: // Do not block checking if process success
