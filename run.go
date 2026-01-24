@@ -2,9 +2,6 @@ package ui
 
 import (
 	"fmt"
-	"github.com/Yeicor/sdfx-ui/internal"
-	"github.com/cenkalti/backoff/v4"
-	"github.com/hajimehoshi/ebiten"
 	"io"
 	"log"
 	"net"
@@ -15,6 +12,10 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/Yeicor/sdfx-ui/internal"
+	"github.com/cenkalti/backoff/v4"
+	"github.com/hajimehoshi/ebiten"
 )
 
 const changeEventThrottle = 100 * time.Millisecond
@@ -152,7 +153,7 @@ func (r *Renderer) rendererSwapChild(runCmd *exec.Cmd, runCmdF func() *exec.Cmd)
 	}()
 	// 4. Connect to it as fast as possible, with exponential backoff to relax on errors.
 	log.Println("[DevRenderer] Trying to connect to new code with exponential backoff...")
-r.backOff.Reset()
+	r.backOff.Reset()
 	err = backoff.RetryNotify(func() error {
 		dialHTTP, err := rpc.DialHTTP("tcp", requestedFreeAddr)
 		if err != nil {
@@ -160,8 +161,8 @@ r.backOff.Reset()
 			case ps, ok := <-startupFinished:
 				if ok && !ps.Success() {
 					err2 := backoff.Permanent(fmt.Errorf(
-					"new code crashed (pid %d), fix errors: %s",
-					runCmd.Process.Pid, ps.String()))
+						"new code crashed (pid %d), fix errors: %s",
+						runCmd.Process.Pid, ps.String()))
 					return err2
 				}
 			default: // Do not block checking if process success
