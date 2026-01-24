@@ -152,7 +152,7 @@ func (r *Renderer) rendererSwapChild(runCmd *exec.Cmd, runCmdF func() *exec.Cmd)
 	}()
 	// 4. Connect to it as fast as possible, with exponential backoff to relax on errors.
 	log.Println("[DevRenderer] Trying to connect to new code with exponential backoff...")
-	r.backOff.Reset()
+r.backOff.Reset()
 	err = backoff.RetryNotify(func() error {
 		dialHTTP, err := rpc.DialHTTP("tcp", requestedFreeAddr)
 		if err != nil {
