@@ -1,6 +1,6 @@
 module github.com/Yeicor/sdfx-ui
 
-go 1.22.0
+go 1.24.0
 
 toolchain go1.25.6
 
@@ -13,7 +13,7 @@ require (
 	github.com/hajimehoshi/ebiten v1.12.13
 	github.com/mitchellh/reflectwalk v1.0.2
 	github.com/subchen/go-trylock/v2 v2.0.0
-	golang.org/x/image v0.22.0
+	golang.org/x/image v0.35.0
 )
 
 require (
