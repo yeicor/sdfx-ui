@@ -7,6 +7,7 @@ toolchain go1.25.6
 require (
 	github.com/barkimedes/go-deepcopy v0.0.0-20220514131651-17c30cfc62df
 	github.com/cenkalti/backoff/v4 v4.3.0
+	github.com/cenkalti/backoff/v5 v5.0.3
 	github.com/deadsy/sdfx v0.0.0-20250127165859-030b425ef91c
 	github.com/fogleman/fauxgl v0.0.0-20250110135958-abf826acbbbd
 	github.com/fsnotify/fsnotify v1.9.0
