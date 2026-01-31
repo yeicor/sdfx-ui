@@ -12,6 +12,7 @@ require (
 	github.com/fogleman/fauxgl v0.0.0-20250110135958-abf826acbbbd
 	github.com/fsnotify/fsnotify v1.9.0
 	github.com/hajimehoshi/ebiten v1.12.13
+	github.com/hajimehoshi/ebiten/v2 v2.9.8
 	github.com/mitchellh/reflectwalk v1.0.2
 	github.com/subchen/go-trylock/v2 v2.0.0
 	golang.org/x/image v0.35.0
@@ -29,5 +30,5 @@ require (
 	github.com/yofu/dxf v0.0.0-20240729034626-50c66fc03e0d // indirect
 	golang.org/x/exp/shiny v0.0.0-20230223210539-50820d90acfd // indirect
 	golang.org/x/mobile v0.0.0-20221110043201-43a038452099 // indirect
-	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/sys v0.36.0 // indirect
 )
