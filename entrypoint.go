@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/Yeicor/sdfx-ui/internal"
-	"github.com/cenkalti/backoff/v4"
+	"github.com/cenkalti/backoff/v5"
 	"github.com/deadsy/sdfx/sdf"
 	"github.com/deadsy/sdfx/vec/v2i"
 	"github.com/hajimehoshi/ebiten"
