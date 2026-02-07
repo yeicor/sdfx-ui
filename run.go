@@ -12,9 +12,10 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+	"context"
 
 	"github.com/Yeicor/sdfx-ui/internal"
-	"github.com/cenkalti/backoff/v4"
+	"github.com/cenkalti/backoff/v5"
 	"github.com/hajimehoshi/ebiten"
 )
 
@@ -153,8 +154,7 @@ func (r *Renderer) rendererSwapChild(runCmd *exec.Cmd, runCmdF func() *exec.Cmd)
 	}()
 	// 4. Connect to it as fast as possible, with exponential backoff to relax on errors.
 	log.Println("[DevRenderer] Trying to connect to new code with exponential backoff...")
-	r.backOff.Reset()
-	err = backoff.RetryNotify(func() error {
+	_, err = backoff.Retry(context.TODO(), func() (string, error) {
 		dialHTTP, err := rpc.DialHTTP("tcp", requestedFreeAddr)
 		if err != nil {
 			select {
@@ -163,21 +163,21 @@ func (r *Renderer) rendererSwapChild(runCmd *exec.Cmd, runCmdF func() *exec.Cmd)
 					err2 := backoff.Permanent(fmt.Errorf(
 						"new code crashed (pid %d), fix errors: %s",
 						runCmd.Process.Pid, ps.String()))
-					return err2
+					return "", err2
 				}
 			default: // Do not block checking if process success
 			}
-			return err
+			return "", err
 		}
 		remoteRenderer := newDevRendererClient(dialHTTP)
 		// 4.1. Swap the renderer on success
 		r.impl = remoteRenderer
 		r.implState.ColorMode = r.implState.ColorMode % r.impl.ColorModes() // Use a valid color mode always
 		r.rerender()                                                        // Render the new SDF!!!
-		return nil
-	}, r.backOff, func(err error, duration time.Duration) {
+		return "", nil
+	}, backoff.WithNotify(func(err error, duration time.Duration) {
 		log.Println("[DevRenderer] connection error:", err, "- retrying in:", duration)
-	})
+	}))
 	if err != nil {
 		log.Println("[DevRenderer] backoff.RetryNotify gave up on connecting, with error:", err)
 		return runCmd
