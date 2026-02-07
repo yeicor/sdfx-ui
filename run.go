@@ -1,6 +1,7 @@
 package ui
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"log"
@@ -12,7 +13,6 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
-	"context"
 
 	"github.com/Yeicor/sdfx-ui/internal"
 	"github.com/cenkalti/backoff/v5"
